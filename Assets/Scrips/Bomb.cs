@@ -6,7 +6,6 @@ public class Bomb : MonoBehaviour
 {
     
     public Transform player; // ? -> set by player
-    public GameManager manager;
     public float explosionRadius;
     public float explosionStrength;
     public float upwardsModifier;
@@ -24,7 +23,6 @@ public class Bomb : MonoBehaviour
     void Start()
     {
         player.TryGetComponent(out PlayerMovement playerScript); // Why Try? (will still give Exception if the component is not there
-        manager = playerScript.gameManager;
         
         effectList[0] = effect1;
         effectList[1] = effect2;
@@ -62,7 +60,7 @@ public class Bomb : MonoBehaviour
                     {
                         if (!target.isBurnt)
                         {
-                            manager.addScore(1);
+                            GameManager.instance.addScore(1);
                             Debug.Log("TARGETHIT");
                             Debug.Log(hitTargets[i]);
                             target.Burn(); 

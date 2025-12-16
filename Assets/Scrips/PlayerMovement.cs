@@ -4,8 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public GameManager gameManager; // TODO maybe: search in scene or singleton?
+    //private GameManager gameManager; // TODO maybe: search in scene or singleton?
     public float baseSpeed;
     public float mouseSens;
     public Camera playerCamera;
@@ -27,11 +26,16 @@ public class PlayerMovement : MonoBehaviour
 
     private float verticalAxis;
     private float horizontalAxis;
+    private float mouseX;
+    private float mouseY;
+    private bool rotateRequestPlayer;
+    private bool rotateRequestCamera;
+    private bool canJump;
     [SerializeField] private Transform camPivot;
     float camRotation;
     Rigidbody rb;
     
-    bool canJump;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,9 +51,17 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //movement 
+        //movement Input
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
+
+        //player rotation Input
+        mouseX = Input.GetAxis("Mouse X");
+        
+        //vertical cam rotation
+        camRotation -= Input.GetAxis("Mouse Y");
+        camRotation = Mathf.Clamp(camRotation, -8f, 45f);
+
 
         if (horizontalAxis != 0)
         {
@@ -59,14 +71,19 @@ public class PlayerMovement : MonoBehaviour
         {
             VerticalMoveRequest = true;
         }
+        if (mouseX != 0)
+        {
+            rotateRequestPlayer = true;
+        }
+       
         
         //transform.Translate(0, 0, Input.GetAxis("Vertical") * speed * Time.deltaTime); // TODO: proper physics
         //transform.Translate(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0, 0);
         //Horizontal Rotation
-        transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
-        //vertical cam rotation
-        camRotation -= Input.GetAxis("Mouse Y");
-        camRotation = Mathf.Clamp(camRotation, -8f, 45f);
+        //transform.Rotate(0, Input.GetAxis("Mouse X") * mouseSens, 0);
+        
+        
+
         camPivot.transform.localRotation = Quaternion.Euler(camRotation, 0, 0);
         
         //jumping
@@ -79,10 +96,10 @@ public class PlayerMovement : MonoBehaviour
         {
             Bomb newBomb = Instantiate(bomb, bombSpawn.position, Quaternion.Euler(0, 0, 0));
             newBomb.player = transform;
-
         }
 
-        //adjust damping to avoid slow fall
+
+        //adjust damping for when midair
         if (!IsGrounded())
         {
             rb.linearDamping = linearDampingAirborne;
@@ -91,9 +108,9 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
         {
             rb.linearDamping = linearDamping;
-            currentSpeed = baseSpeed;
-            
+            currentSpeed = baseSpeed; 
         }
+        
     }
 
     private void FixedUpdate()
@@ -111,12 +128,27 @@ public class PlayerMovement : MonoBehaviour
         
         if (VerticalMoveRequest)
         {
-            rb.AddForce(transform.forward * verticalAxis * currentSpeed, ForceMode.VelocityChange);
+            rb.AddForce(transform.forward * verticalAxis * currentSpeed, ForceMode.VelocityChange); // Should be force or acceleration
+            VerticalMoveRequest = false;
+            // TBH I think it's fine to use Input.GetAxis in FixedUpdate and the slides are too picky... - Paul
         }
         if (HorizontalMoveRequest)
         {
             rb.AddForce(transform.right * horizontalAxis * currentSpeed, ForceMode.VelocityChange);
+            HorizontalMoveRequest = false;
         }
+
+        //plater rotation
+        if (rotateRequestPlayer)
+        {
+            // Paul says transform.Rotate here is fine, because it's a capsule :-)
+            //  (Or only rotate the camera)
+            //transform.Rotate()
+            rb.AddTorque(transform.up * mouseX * mouseSens, ForceMode.Impulse);
+            rotateRequestPlayer = false;  
+        }
+        //cam rotation
+
 
     }
 
@@ -124,14 +156,11 @@ public class PlayerMovement : MonoBehaviour
     {
         //Grounded check
         return Physics.Raycast(transform.GetComponent<Collider>().bounds.center, -transform.up, transform.GetComponent<Collider>().bounds.extents.y + groundCheckExtends, groundLayer);
-
-
     }
 
     public void Die()
     {
-        gameManager.resetScene();
-        
+        GameManager.instance.resetScene();
     }
 
     
