@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4034051056290742265}
   - component: {fileID: 5919396047297187219}
   - component: {fileID: 6175259380854329480}
-  - component: {fileID: 5309164649271376660}
   m_Layer: 0
   m_Name: Second Branch
   m_TagString: Untagged
@@ -112,22 +111,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5309164649271376660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4729083325430999456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28eb86354b026d94c9b743b4e7bce247, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TrapScript
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  playerScript: {fileID: 0}
 --- !u!1 &9081505917660405109
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +124,8 @@ GameObject:
   - component: {fileID: 2721216628225175729}
   - component: {fileID: 3873830875694086511}
   - component: {fileID: 681363152573031242}
-  - component: {fileID: 7018779668667167100}
+  - component: {fileID: 3384784905321343471}
+  - component: {fileID: 4682429278661302693}
   m_Layer: 0
   m_Name: Spinning Trap 2
   m_TagString: Untagged
@@ -255,7 +239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpinningTrap
   speed: 100
---- !u!114 &7018779668667167100
+  rb: {fileID: 0}
+--- !u!114 &3384784905321343471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,7 +252,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eb86354b026d94c9b743b4e7bce247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapScript
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  playerTag: Player
   playerScript: {fileID: 0}
+--- !u!54 &4682429278661302693
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9081505917660405109}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 6
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 94
+  m_CollisionDetection: 0

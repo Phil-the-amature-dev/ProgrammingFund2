@@ -3,15 +3,17 @@ using UnityEngine;
 public class SpinningTrap : MonoBehaviour
 {
     public float speed;
+    public Rigidbody rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    
+
+    private void FixedUpdate()
     {
-        transform.Rotate(0, 1 * speed * Time.deltaTime, 0);
+        rb.AddTorque(Vector3.up * speed, ForceMode.Force);
     }
 }
