@@ -3,11 +3,12 @@ using UnityEngine;
 public class TrapScript : MonoBehaviour
 {
     public string playerTag;
-    public PlayerMovement playerScript;
+    PlayerMovement playerScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // find the player... using tag?        
+        playerScript = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -15,6 +16,8 @@ public class TrapScript : MonoBehaviour
     {
         
     }
+
+    int TestMethod(float input) { return 0; }
 
     private void OnCollisionEnter(Collision collision)
     {

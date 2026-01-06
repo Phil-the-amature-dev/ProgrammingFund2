@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         verticalAxis = Input.GetAxis("Vertical");
 
         //player rotation Input
-        mouseX = Input.GetAxis("Mouse X");
+        mouseX = Input.GetAxis("Mouse X"); // -> when using mouse axis, also rotate here!
         
         //vertical cam rotation
         camRotation -= Input.GetAxis("Mouse Y");
@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         //transform.Translate(0, 0, Input.GetAxis("Vertical") * speed * Time.deltaTime); // TODO: proper physics
         //transform.Translate(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0, 0);
         //Horizontal Rotation
-        //transform.Rotate(0, Input.GetAxis("Mouse X") * mouseSens, 0);
+        //transform.Rotate(0, Input.GetAxis("Mouse X") * mouseSens, 0); // I actually prefer this one (...)
         
         
 
@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            Bomb newBomb = Instantiate(bomb, bombSpawn.position, Quaternion.Euler(0, 0, 0));
+            Bomb newBomb = Instantiate(bomb, bombSpawn.position, Quaternion.Euler(0, 0, 0)); // TODO: shoot up/down?
             newBomb.player = transform;
         }
 
@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
             // Paul says transform.Rotate here is fine, because it's a capsule :-)
             //  (Or only rotate the camera)
             //transform.Rotate()
-            rb.AddTorque(transform.up * mouseX * mouseSens, ForceMode.Impulse);
+            rb.AddTorque(transform.up * mouseX * mouseSens, ForceMode.Impulse); // hm no impulse
             rotateRequestPlayer = false;  
         }
         //cam rotation

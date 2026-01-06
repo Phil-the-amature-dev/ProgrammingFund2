@@ -15,7 +15,7 @@ public class Bomb : MonoBehaviour
     public GameObject effect2;
     public GameObject effect3;
     public GameObject[] effectList;
-    private Collider[] hitTargets = new Collider[50]; // ??? -> explained: non-allocating
+    private Collider[] hitTargets = new Collider[50]; // This is for efficiency: non-allocating every time
     //public bool HorizontalTrajectory = true;
 
 
@@ -27,7 +27,7 @@ public class Bomb : MonoBehaviour
         effectList[0] = effect1;
         effectList[1] = effect2;
         effectList[2] = effect3;
-        transform.GetComponent<Rigidbody>().AddForce(player.forward, ForceMode.Force);
+        transform.GetComponent<Rigidbody>().AddForce(player.forward, ForceMode.Force); // TODO: facing direction?
         //effect1.GetComponent<ParticleSystem>().totalTime
     }
 
