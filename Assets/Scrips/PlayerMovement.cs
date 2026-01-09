@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //private GameManager gameManager; // TODO maybe: search in scene or singleton?
+    
     public float baseSpeed;
     public float mouseSens;
     public Camera playerCamera;
@@ -26,10 +26,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float verticalAxis;
     private float horizontalAxis;
-    private float mouseX;
-    private float mouseY;
-    private bool rotateRequestPlayer;
-    private bool rotateRequestCamera;
     private bool canJump;
     [SerializeField] private Transform camPivot;
     float camRotation;
@@ -55,12 +51,13 @@ public class PlayerMovement : MonoBehaviour
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
 
-        //player rotation Input
-        mouseX = Input.GetAxis("Mouse X"); // -> when using mouse axis, also rotate here!
-        
+        //player rotation  
+        transform.Rotate(0, Input.GetAxis("Mouse X") * mouseSens, 0); 
+
         //vertical cam rotation
         camRotation -= Input.GetAxis("Mouse Y");
         camRotation = Mathf.Clamp(camRotation, -8f, 45f);
+        camPivot.transform.localRotation = Quaternion.Euler(camRotation, 0, 0);
 
 
         if (horizontalAxis != 0)
@@ -71,20 +68,6 @@ public class PlayerMovement : MonoBehaviour
         {
             VerticalMoveRequest = true;
         }
-        if (mouseX != 0)
-        {
-            rotateRequestPlayer = true;
-        }
-       
-        
-        //transform.Translate(0, 0, Input.GetAxis("Vertical") * speed * Time.deltaTime); // TODO: proper physics
-        //transform.Translate(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0, 0);
-        //Horizontal Rotation
-        //transform.Rotate(0, Input.GetAxis("Mouse X") * mouseSens, 0); // I actually prefer this one (...)
-        
-        
-
-        camPivot.transform.localRotation = Quaternion.Euler(camRotation, 0, 0);
         
         //jumping
         if (Input.GetKeyDown("space") && IsGrounded())
@@ -95,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Bomb newBomb = Instantiate(bomb, bombSpawn.position, Quaternion.Euler(0, 0, 0)); // TODO: shoot up/down?
-            newBomb.player = transform;
         }
 
 
@@ -125,31 +107,16 @@ public class PlayerMovement : MonoBehaviour
         }
         
         //execute movement
-        
         if (VerticalMoveRequest)
         {
-            rb.AddForce(transform.forward * verticalAxis * currentSpeed, ForceMode.VelocityChange); // Should be force or acceleration
+            rb.AddForce(transform.forward * verticalAxis * currentSpeed, ForceMode.Acceleration);  
             VerticalMoveRequest = false;
-            // TBH I think it's fine to use Input.GetAxis in FixedUpdate and the slides are too picky... - Paul
         }
         if (HorizontalMoveRequest)
         {
-            rb.AddForce(transform.right * horizontalAxis * currentSpeed, ForceMode.VelocityChange);
+            rb.AddForce(transform.right * horizontalAxis * currentSpeed, ForceMode.Acceleration);
             HorizontalMoveRequest = false;
         }
-
-        //plater rotation
-        if (rotateRequestPlayer)
-        {
-            // Paul says transform.Rotate here is fine, because it's a capsule :-)
-            //  (Or only rotate the camera)
-            //transform.Rotate()
-            rb.AddTorque(transform.up * mouseX * mouseSens, ForceMode.Impulse); // hm no impulse
-            rotateRequestPlayer = false;  
-        }
-        //cam rotation
-
-
     }
 
     private bool IsGrounded()

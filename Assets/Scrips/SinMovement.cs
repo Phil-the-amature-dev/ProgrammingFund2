@@ -5,7 +5,6 @@ public class SinMovement : MonoBehaviour
 {
     public float range;
     public float speed;
-    private Vector3 nextPosition;
     private Rigidbody rb;
     private Vector3 startPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -4,6 +4,7 @@ using System;
 using UnityEngine.SceneManagement;
 
 
+
 public class GameManager : MonoBehaviour
 {
     public int score;
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int nextSceneBuildIndex;
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField]private GameObject[] effectList;
     public static GameManager instance;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //Timer Guide: 
@@ -71,6 +73,11 @@ public class GameManager : MonoBehaviour
     public void resetScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public GameObject GetEffect()
+    {
+        return effectList[UnityEngine.Random.Range(0, effectList.Length)];
     }
 
 }

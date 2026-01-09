@@ -11,24 +11,16 @@ public class Bomb : MonoBehaviour
     public float upwardsModifier;
     // TODO: just use one array here. Why copy??
     // TODO maybe: just pick random particle effects at runtime, instead of diff prefabs
-    public GameObject effect1;
-    public GameObject effect2;
-    public GameObject effect3;
-    public GameObject[] effectList;
+    
     private Collider[] hitTargets = new Collider[50]; // This is for efficiency: non-allocating every time
-    //public bool HorizontalTrajectory = true;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player.TryGetComponent(out PlayerMovement playerScript); // Why Try? (will still give Exception if the component is not there
-        
-        effectList[0] = effect1;
-        effectList[1] = effect2;
-        effectList[2] = effect3;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        //player.GetComponent<PlayerMovement>(); // Why Try? (will still give Exception if the component is not there
         transform.GetComponent<Rigidbody>().AddForce(player.forward, ForceMode.Force); // TODO: facing direction?
-        //effect1.GetComponent<ParticleSystem>().totalTime
     }
 
     // Update is called once per frame
@@ -40,8 +32,9 @@ public class Bomb : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        int effectNum = Random.Range(0, 2);
-        GameObject currentEffect = Instantiate(effectList[effectNum], transform.position, Quaternion.Euler(0, 0, 0));
+
+        //GameObject currentEffect = Instantiate(effectList[effectNum], transform.position, Quaternion.Euler(0, 0, 0));
+        GameObject effect = Instantiate (GameManager.instance.GetEffect(), transform.position, Quaternion.Euler(0, 0, 0));
 
         //Explosion Guide:
         //https://gamedevbeginner.com/how-to-make-an-explosion-in-unity/
@@ -70,7 +63,8 @@ public class Bomb : MonoBehaviour
                 } 
         }
         
-        Destroy(currentEffect.gameObject, effectList[effectNum].GetComponent<ParticleSystem>().main.duration);
+        //Destroy(currentEffect.gameObject, effectList[effectNum].GetComponent<ParticleSystem>().main.duration);
+        Destroy(effect.gameObject, effect.GetComponent<ParticleSystem>().main.duration);
         Destroy(gameObject);
     }
 }
