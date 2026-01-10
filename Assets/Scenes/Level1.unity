@@ -15871,6 +15871,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
+      propertyPath: bombSfxList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
       propertyPath: 'effectList.Array.data[0]'
       value: 
       objectReference: {fileID: 100010, guid: d609d5ebc845aca409f72e9c6a56dc60, type: 3}
@@ -15890,6 +15894,38 @@ PrefabInstance:
       propertyPath: 'effectList.Array.data[4]'
       value: 
       objectReference: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
+    - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
+      propertyPath: bombEffectList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
+      propertyPath: 'bombSfxList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b935560388738e940a2b6200b999ba41, type: 3}
+    - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
+      propertyPath: 'bombSfxList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 24cc302e09aa36f49b05c1c5773c7b8b, type: 3}
+    - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
+      propertyPath: 'bombSfxList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: a0ce9083f2bcb2640a70104f73937050, type: 3}
+    - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
+      propertyPath: 'bombEffectList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
+    - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
+      propertyPath: 'bombEffectList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 100010, guid: d609d5ebc845aca409f72e9c6a56dc60, type: 3}
+    - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
+      propertyPath: 'bombEffectList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 100002, guid: 4bf22a1d8d9e7724b9af67921436851d, type: 3}
+    - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
+      propertyPath: 'bombEffectList.Array.data[3]'
+      value: 
+      objectReference: {fileID: 100010, guid: d609d5ebc845aca409f72e9c6a56dc60, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

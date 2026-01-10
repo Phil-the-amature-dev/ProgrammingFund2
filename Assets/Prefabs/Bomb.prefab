@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5320131564055798963}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.77139, y: 0.97924, z: -7}
+  m_LocalPosition: {x: -5.77139, y: 0.98, z: -7}
   m_LocalScale: {x: 0.32825, y: 0.32825, z: 0.32825}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -153,15 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bomb
   player: {fileID: 6404640569590050187, guid: c7fbe38d3f91ad941967e5d0eb3bf001, type: 3}
-  manager: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
   explosionRadius: 3
   explosionStrength: 20
   upwardsModifier: 4
-  burnMaterial: {fileID: 2100000, guid: 0356b5b27ecdb334ca9d93cff1c532bd, type: 2}
-  effect1: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
-  effect2: {fileID: 100012, guid: 3364c97de68d3a147af572d1c71c6455, type: 3}
-  effect3: {fileID: 100006, guid: 2e7e92bc7175b744ea40878dedfa79e4, type: 3}
-  effectList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}

@@ -9,6 +9,7 @@ public class Bomb : MonoBehaviour
     public float explosionRadius;
     public float explosionStrength;
     public float upwardsModifier;
+    private AudioClip audioClip;
     // TODO: just use one array here. Why copy??
     // TODO maybe: just pick random particle effects at runtime, instead of diff prefabs
     
@@ -21,6 +22,7 @@ public class Bomb : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         //player.GetComponent<PlayerMovement>(); // Why Try? (will still give Exception if the component is not there
         transform.GetComponent<Rigidbody>().AddForce(player.forward, ForceMode.Force); // TODO: facing direction?
+        audioClip = GameManager.instance.GetSfx();
     }
 
     // Update is called once per frame
@@ -62,7 +64,10 @@ public class Bomb : MonoBehaviour
                     
                 } 
         }
-        
+
+        //play audio
+        AudioSource.PlayClipAtPoint(audioClip, transform.position);
+
         //Destroy(currentEffect.gameObject, effectList[effectNum].GetComponent<ParticleSystem>().main.duration);
         Destroy(effect.gameObject, effect.GetComponent<ParticleSystem>().main.duration);
         Destroy(gameObject);
