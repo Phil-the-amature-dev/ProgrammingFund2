@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
         //vertical cam rotation
         camRotation -= Input.GetAxis("Mouse Y");
-        camRotation = Mathf.Clamp(camRotation, -8f, 45f);
+        camRotation = Mathf.Clamp(camRotation, -20f, 45f);
         camPivot.transform.localRotation = Quaternion.Euler(camRotation, 0, 0);
 
 
@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            Bomb newBomb = Instantiate(bomb, bombSpawn.position, Quaternion.Euler(0, 0, 0)); // TODO: shoot up/down?
+            Bomb newBomb = Instantiate(bomb, bombSpawn.position, Quaternion.Euler(0, 0, 0)); 
         }
 
 

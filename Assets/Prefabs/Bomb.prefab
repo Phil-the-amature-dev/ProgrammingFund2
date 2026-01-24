@@ -156,3 +156,4 @@ MonoBehaviour:
   explosionRadius: 3
   explosionStrength: 20
   upwardsModifier: 4
+  explosionVolume: 0.6

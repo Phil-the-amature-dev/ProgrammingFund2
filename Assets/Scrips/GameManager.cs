@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private bool timerActive = true;
     public float minutes;
     public int nextSceneBuildIndex;
+    public Transform player;
+
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField]private GameObject[] bombEffectList;
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
         score = 0;
         scoreText.text = "Score: " + score.ToString();
         minutes *= 60;
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     private void Awake()

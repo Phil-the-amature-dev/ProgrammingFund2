@@ -10,8 +10,8 @@ public class Bomb : MonoBehaviour
     public float explosionStrength;
     public float upwardsModifier;
     private AudioClip audioClip;
-    // TODO: just use one array here. Why copy??
-    // TODO maybe: just pick random particle effects at runtime, instead of diff prefabs
+    private Camera playerCamera;
+    [SerializeField] private float explosionVolume;
     
     private Collider[] hitTargets = new Collider[50]; // This is for efficiency: non-allocating every time
 
@@ -19,23 +19,17 @@ public class Bomb : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        //player.GetComponent<PlayerMovement>(); // Why Try? (will still give Exception if the component is not there
-        transform.GetComponent<Rigidbody>().AddForce(player.forward, ForceMode.Force); // TODO: facing direction?
+        player = GameManager.instance.player;
+        playerCamera = player.GetComponentInChildren<Camera>();
         audioClip = GameManager.instance.GetSfx();
+        
+        transform.GetComponent<Rigidbody>().AddForce(playerCamera.transform.forward, ForceMode.Force); 
     }
 
-    // Update is called once per frame
-    void Update()
-          
-    {
-        
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
 
-        //GameObject currentEffect = Instantiate(effectList[effectNum], transform.position, Quaternion.Euler(0, 0, 0));
         GameObject effect = Instantiate (GameManager.instance.GetEffect(), transform.position, Quaternion.Euler(0, 0, 0));
 
         //Explosion Guide:
@@ -56,7 +50,6 @@ public class Bomb : MonoBehaviour
                         if (!target.isBurnt)
                         {
                             GameManager.instance.addScore(1);
-                            Debug.Log("TARGETHIT");
                             Debug.Log(hitTargets[i]);
                             target.Burn(); 
                         }
@@ -66,9 +59,8 @@ public class Bomb : MonoBehaviour
         }
 
         //play audio
-        AudioSource.PlayClipAtPoint(audioClip, transform.position);
+        AudioSource.PlayClipAtPoint(audioClip, transform.position, explosionVolume);
 
-        //Destroy(currentEffect.gameObject, effectList[effectNum].GetComponent<ParticleSystem>().main.duration);
         Destroy(effect.gameObject, effect.GetComponent<ParticleSystem>().main.duration);
         Destroy(gameObject);
     }
