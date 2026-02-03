@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
+    //checks for other instances before declaring itself as the one instance
     private void Awake()
     {
         if (instance != null && instance != this)
