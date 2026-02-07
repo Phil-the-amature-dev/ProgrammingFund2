@@ -15848,7 +15848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
       propertyPath: goal
-      value: 100
+      value: 117
       objectReference: {fileID: 0}
     - target: {fileID: 8726107306122894235, guid: 318b5c05556afe84a9bba4ca20a6fa36, type: 3}
       propertyPath: minutes

@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 public class Bomb : MonoBehaviour
 {
     
-    public Transform player; // ? -> set by player
+    public Transform player; 
     public float explosionRadius;
     public float explosionStrength;
     public float upwardsModifier;

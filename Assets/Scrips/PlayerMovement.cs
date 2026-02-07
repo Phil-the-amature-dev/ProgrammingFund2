@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         camRotation = Mathf.Clamp(camRotation, -20f, 45f);
         camPivot.transform.localRotation = Quaternion.Euler(camRotation, 0, 0);
 
-
+        //movement requests
         if (horizontalAxis != 0)
         {
             HorizontalMoveRequest = true; 
