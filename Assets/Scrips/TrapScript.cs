@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class TrapScript : MonoBehaviour
 {
-    public string playerTag;
+    [SerializeField] private string playerTag;
     PlayerMovement playerScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // find the player... using tag?        
         playerScript = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerMovement>();
+
     }
 
     // Update is called once per frame

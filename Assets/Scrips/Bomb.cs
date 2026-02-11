@@ -11,6 +11,7 @@ public class Bomb : MonoBehaviour
     public float upwardsModifier;
     private AudioClip audioClip;
     private Camera playerCamera;
+    private int playerLayer;
     [SerializeField] private float explosionVolume;
     
     private Collider[] hitTargets = new Collider[50]; // This is for efficiency: non-allocating every time
@@ -22,7 +23,9 @@ public class Bomb : MonoBehaviour
         player = GameManager.instance.player;
         playerCamera = player.GetComponentInChildren<Camera>();
         audioClip = GameManager.instance.GetSfx();
-        
+        playerLayer = GameManager.instance.player.gameObject.layer;
+
+
         transform.GetComponent<Rigidbody>().AddForce(playerCamera.transform.forward, ForceMode.Force); 
     }
 
@@ -42,7 +45,7 @@ public class Bomb : MonoBehaviour
         for (int i = 0; i < targetNum; i++)
         {
                 
-                if (hitTargets[i].TryGetComponent(out Rigidbody rb) && hitTargets[i].gameObject.layer != 3 && hitTargets[i].gameObject.layer != 7) // TODO maybe: no hard coded layers?
+                if (hitTargets[i].TryGetComponent(out Rigidbody rb) && hitTargets[i].gameObject.layer != playerLayer && hitTargets[i].gameObject.layer != gameObject.layer) // TODO maybe: no hard coded layers?
                 {
                     rb.AddExplosionForce(explosionStrength, transform.position, explosionRadius, upwardsModifier);
                     if (hitTargets[i].TryGetComponent(out Target target))
